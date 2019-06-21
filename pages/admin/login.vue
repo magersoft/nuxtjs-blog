@@ -52,6 +52,9 @@ export default {
           case 'logout':
               this.$message.success('Вы вышли из системы');
               break;
+          case 'session':
+              this.$message.warning('Время сессии истекло, пожалуйста войдите заново');
+              break;
       }
     },
     methods: {

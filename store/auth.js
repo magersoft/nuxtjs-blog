@@ -1,22 +1,23 @@
 export const state = () => ({
-   token: true,
+   token: null,
 });
 
 
 export const mutations = {
     setToken(state, token) {
+        this.$axios.setToken(token, 'Bearer');
         state.token = token;
     },
     clearToken(state) {
+        this.$axios.setToken(false);
         state.token = null;
     },
 };
 
 export const actions = {
-    async login({ commit, dispatch, formData }) {
+    async login({ commit, dispatch }, formData) {
         try {
             const { token } = await this.$axios.$post('/api/auth/admin/login', formData);
-            console.log(token);
             dispatch('setToken' , token);
         } catch (e) {
             commit('setError', e, { root: true });
@@ -40,5 +41,6 @@ export const actions = {
 };
 
 export const getters = {
-  isAuth: state => Boolean(state.token),
+    isAuth: state => Boolean(state.token),
+    token: state => state.token,
 };
