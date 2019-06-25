@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "chart.js": "^2.8.0",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
     "express": "^4.16.4",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.0.0",
+    "vue-chartjs": "^3.4.2",
     "vue-markdown": "^2.2.4"
   },
   "devDependencies": {
