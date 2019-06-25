@@ -5,21 +5,21 @@
     :body-style="{ padding: 0 }"
   >
     <header slot="header" class="post-header">
-      <h3>Post title</h3>
+      <h3>{{ post.title }}</h3>
 
       <small>
         <i class="el-icon-time"></i>
-        {{ new Date().toLocaleString() }}
+        {{ post.date | date('date') }}
       </small>
     </header>
     <div class="post-body">
-      <img src="https://www.berlin.de/binaries/asset/image_assets/5719603/ratio_2_1/1560241983/624x312/" alt="post image" class="post-img">
+      <img :src="post.imageUrl" alt="post image" class="post-img">
     </div>
     <footer class="post-footer">
       <el-button type="primary" round @click="openPost">Открыть</el-button>
       <span>
         <i class="el-icon-message"></i>
-        12
+        {{ post.comments.length }}
       </span>
     </footer>
   </el-card>
@@ -27,9 +27,15 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    }
+  },
   methods: {
     openPost() {
-      const id = 'test-id';
+      const id = this.post._id;
       this.$router.push(`/post/${id}`)
     }
   }

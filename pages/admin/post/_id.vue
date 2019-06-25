@@ -8,13 +8,13 @@
         <el-form :model="controls" :rules="rules" ref="form" @submit.native.prevent="onSubmit">
             <!--<h1>Авторизация</h1>-->
             <el-form-item label="Текст в формате .md или .html" prop="text">
-                <el-input v-model.trim="controls.text" type="textarea" resize="none" :rows="10" />
+                <el-input v-model="controls.text" type="textarea" resize="none" :rows="10" />
             </el-form-item>
 
             <div class="mb">
                 <small style="margin-right: 2rem;">
                     <i class="el-icon-time"></i>
-                    <span>{{ new Date(post.date).toLocaleDateString() }}</span>
+                    <span>{{ post.date | date }}</span>
                 </small>
 
                 <small>
@@ -41,7 +41,7 @@ export default {
     middleware: ['admin-auth'],
     head() {
         return {
-            title: `Пост | ${this.post.title}`
+            title: `${this.post.title} | ${process.env.appName}`,
         }
     },
     validate({ params }) {
@@ -62,6 +62,9 @@ export default {
             ],
         }
     }),
+    mounted() {
+      this.controls.text = this.post.text;
+    },
     methods: {
         onSubmit() {
             this.$refs.form.validate(async valid => {

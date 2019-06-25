@@ -26,6 +26,9 @@
 <script>
 export default {
     layout: 'empty',
+    head: {
+        title: `Авторизация | ${process.env.appName}`
+    },
     data: () => ({
         loading: false,
         controls: {

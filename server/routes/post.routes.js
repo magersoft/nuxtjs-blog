@@ -39,6 +39,11 @@ router.delete(
     ctr.remove
 );
 
+router.get(
+    '/admin/get/analytics',
+    passport.authenticate('jwt', { session: false }),
+    ctr.getAnalytics
+);
 
 /**
  * Base router
@@ -46,6 +51,6 @@ router.delete(
  */
 router.get('/', ctr.getAll);
 router.get('/:id', ctr.getById);
-router.put('/:id', ctr.addView);
+router.put('/add/view/:id', ctr.addView);
 
 module.exports = router;

@@ -45,6 +45,9 @@
 export default {
     layout: 'admin',
     middleware: ['admin-auth'],
+    head: {
+        title: `Создать пост | ${process.env.appName}`
+    },
     data: () => ({
         previewDialog: false,
         loading: false,

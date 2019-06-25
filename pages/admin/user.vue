@@ -22,6 +22,9 @@
     export default {
         layout: 'admin',
         middleware: ['admin-auth'],
+        head: {
+            title: `Создать пользователя | ${process.env.appName}`
+        },
         data: () => ({
             loading: false,
             controls: {

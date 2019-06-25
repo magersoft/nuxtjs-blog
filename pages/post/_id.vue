@@ -2,7 +2,7 @@
     <article class="post">
         <header class="post-header">
             <div class="post-title">
-                <h1>Post title</h1>
+                <h1>{{ post.title }}</h1>
                 <nuxt-link to="/">
                     <i class="el-icon-back"></i>
                 </nuxt-link>
@@ -10,32 +10,31 @@
             <div class="post-info">
                 <small>
                     <i class="el-icon-time"></i>
-                    {{ new Date().toLocaleString() }}
+                    {{ post.date | date('date') }}
                 </small>
                 <small>
                     <i class="el-icon-view"></i>
-                    42
+                    {{ post.views }}
                 </small>
             </div>
             <div class="post-image">
-                <img src="https://www.berlin.de/binaries/asset/image_assets/5719603/ratio_2_1/1560241983/624x312/" alt="post image" class="post-img">
+                <img :src="post.imageUrl" alt="post image" class="post-img">
             </div>
         </header>
         <main class="post-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, harum, optio? Ad aliquid animi architecto atque aut blanditiis, corporis debitis dolorum esse fugiat fugit hic impedit inventore iure laborum maiores non obcaecati officiis praesentium quaerat quo sit soluta tenetur voluptas!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, harum, optio? Ad aliquid animi architecto atque aut blanditiis, corporis debitis dolorum esse fugiat fugit hic impedit inventore iure laborum maiores non obcaecati officiis praesentium quaerat quo sit soluta tenetur voluptas!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, harum, optio? Ad aliquid animi architecto atque aut blanditiis, corporis debitis dolorum esse fugiat fugit hic impedit inventore iure laborum maiores non obcaecati officiis praesentium quaerat quo sit soluta tenetur voluptas!</p>
+            <vue-markdown>{{ post.text }}</vue-markdown>
         </main>
         <footer>
             <app-comment-form
                 @created="createCommentHandler"
                 v-if="canAddComment"
+                :postId="post._id"
             />
 
-            <div class="comments" v-if="false">
+            <div class="comments" v-if="post.comments.length">
                 <app-comment
-                    v-for="comment in 4"
-                    :key="comment"
+                    v-for="comment in post.comments"
+                    :key="comment._id"
                     :comment="comment"
                 />
             </div>
@@ -52,14 +51,27 @@ export default {
     validate({params}) {
         return Boolean(params.id);
     },
+    head() {
+        return {
+            title: `${this.post.title} | ${process.env.appName}`,
+        }
+    },
     components: {
         AppComment, AppCommentForm,
+    },
+    async asyncData({ store, params }) {
+      const post = await store.dispatch('post/fetchById', params.id);
+      await store.dispatch('post/addView', post);
+      return {
+          post: { ...post, views: ++post.views }
+      }
     },
     data: () => ({
         canAddComment: true,
     }),
     methods: {
-        createCommentHandler () {
+        createCommentHandler (comment) {
+            this.post.comments.unshift(comment);
           this.canAddComment = false;
         },
     },
