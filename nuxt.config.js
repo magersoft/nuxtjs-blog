@@ -47,13 +47,6 @@ module.exports = {
   */
   axios: {},
 
-  /*
-   ** PWA
-   ** Workbox, meta
-   */
-  workbox: {},
-  meta: {},
-
   env: {
     appName: 'NuxtJS Blog'
   },
