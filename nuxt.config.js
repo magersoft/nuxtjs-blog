@@ -39,13 +39,25 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/pwa',
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
+  axios: {},
+
+  /*
+   ** PWA
+   ** Workbox, meta
+   */
+  workbox: {},
+  meta: {},
+
+  env: {
+    appName: 'NuxtJS Blog'
   },
+
   /*
   ** Build configuration
   */
@@ -57,4 +69,4 @@ module.exports = {
     extend(config, ctx) {
     }
   }
-}
+};

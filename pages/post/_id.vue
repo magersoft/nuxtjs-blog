@@ -10,7 +10,7 @@
             <div class="post-info">
                 <small>
                     <i class="el-icon-time"></i>
-                    {{ new Date(post.date).toLocaleString() }}
+                    {{ post.date | date('date') }}
                 </small>
                 <small>
                     <i class="el-icon-view"></i>
@@ -50,6 +50,11 @@ import AppCommentForm from '@/components/main/CommentForm';
 export default {
     validate({params}) {
         return Boolean(params.id);
+    },
+    head() {
+        return {
+            title: `${this.post.title} | ${process.env.appName}`,
+        }
     },
     components: {
         AppComment, AppCommentForm,
