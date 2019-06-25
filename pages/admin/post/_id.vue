@@ -8,7 +8,7 @@
         <el-form :model="controls" :rules="rules" ref="form" @submit.native.prevent="onSubmit">
             <!--<h1>Авторизация</h1>-->
             <el-form-item label="Текст в формате .md или .html" prop="text">
-                <el-input v-model.trim="controls.text" type="textarea" resize="none" :rows="10" />
+                <el-input v-model="controls.text" type="textarea" resize="none" :rows="10" />
             </el-form-item>
 
             <div class="mb">
@@ -62,6 +62,9 @@ export default {
             ],
         }
     }),
+    mounted() {
+      this.controls.text = this.post.text;
+    },
     methods: {
         onSubmit() {
             this.$refs.form.validate(async valid => {
