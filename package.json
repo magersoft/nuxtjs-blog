@@ -22,7 +22,7 @@
     "element-ui": "^2.4.11",
     "express": "^4.16.4",
     "jwt-decode": "^2.2.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "nuxt-seo-module": "^1.0.0",
     "vue-chartjs": "^3.4.2",
     "vue-markdown": "^2.2.4"
